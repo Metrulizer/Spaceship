@@ -9,6 +9,7 @@ public class SpaceShipControl : MonoBehaviour
 
     public Transform _playerBody;
 
+    public float Tonnage = 1000;
     public float Acceleration = 50;
     public float Torque = 1;
     public float InertialDampener = 10;
@@ -17,7 +18,8 @@ public class SpaceShipControl : MonoBehaviour
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
-        Acceleration *= _rb.mass;
+        _rb.mass = Tonnage * 1000;
+        Acceleration *= _rb.mass;   // Use as Force
         Torque *= _rb.mass;
     }
 
