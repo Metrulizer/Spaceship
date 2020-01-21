@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{CA92BEC8-8876-3D20-98C1-33DA41C77CB1}</ProjectGuid>
+    <ProjectGuid>{771ABE06-F5B2-1E30-8D26-9165BFDEC044}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -63,6 +63,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\CubeButton.cs" />
     <Compile Include="Assets\Scripts\~bin\CharacterScript.cs" />
     <Compile Include="Assets\Scripts\~bin\GravityOverride.cs" />
     <Compile Include="Assets\Scripts\~bin\LEGACY_CameraController.cs" />
@@ -74,8 +75,11 @@
     <Compile Include="Assets\Scripts\CollisionWarning.cs" />
     <Compile Include="Assets\Scripts\Hologram_CollisionTrigger.cs" />
     <Compile Include="Assets\Scripts\Hologram_SetPlane_Enable.cs" />
+    <Compile Include="Assets\Scripts\Interior_buttons\window_fade.cs" />
     <Compile Include="Assets\Scripts\RigidBodyController.cs" />
     <Compile Include="Assets\Scripts\SpaceShipControl.cs" />
+    <Compile Include="Assets\SightLine.cs" />
+    <Compile Include="Assets\WindowButton.cs" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Properties.cginc" />
@@ -95,31 +99,31 @@
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Sprite.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface.shader" />
     <Reference Include="Unity.Timeline.Editor">
-      <HintPath>C:/Data Files/UnityProject/25016604_VirtualWorld/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+      <HintPath>D:/Data Files/University/VR_VirtualReality/CS3VR16_SpaceShip/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VSCode.Editor">
-      <HintPath>C:/Data Files/UnityProject/25016604_VirtualWorld/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
+      <HintPath>D:/Data Files/University/VR_VirtualReality/CS3VR16_SpaceShip/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>C:/Data Files/UnityProject/25016604_VirtualWorld/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>D:/Data Files/University/VR_VirtualReality/CS3VR16_SpaceShip/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>C:/Data Files/UnityProject/25016604_VirtualWorld/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+      <HintPath>D:/Data Files/University/VR_VirtualReality/CS3VR16_SpaceShip/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline">
-      <HintPath>C:/Data Files/UnityProject/25016604_VirtualWorld/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
+      <HintPath>D:/Data Files/University/VR_VirtualReality/CS3VR16_SpaceShip/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
     </Reference>
     <Reference Include="Unity.CollabProxy.Editor">
-      <HintPath>C:/Data Files/UnityProject/25016604_VirtualWorld/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+      <HintPath>D:/Data Files/University/VR_VirtualReality/CS3VR16_SpaceShip/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Rider.Editor">
-      <HintPath>C:/Data Files/UnityProject/25016604_VirtualWorld/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
+      <HintPath>D:/Data Files/University/VR_VirtualReality/CS3VR16_SpaceShip/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>C:/Data Files/UnityProject/25016604_VirtualWorld/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>D:/Data Files/University/VR_VirtualReality/CS3VR16_SpaceShip/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.UI">
-      <HintPath>C:/Data Files/UnityProject/25016604_VirtualWorld/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+      <HintPath>D:/Data Files/University/VR_VirtualReality/CS3VR16_SpaceShip/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.2.18f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>

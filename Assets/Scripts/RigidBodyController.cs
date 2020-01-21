@@ -87,7 +87,7 @@ public class RigidBodyController : MonoBehaviour
 
         // Jump
         if (Input.GetKeyDown(KeyCode.Space) & flagCollision) 
-            _rb.AddRelativeForce(Vector3.up * force * .25f);
+            _rb.AddRelativeForce(-Physics.gravity * force * Time.fixedDeltaTime * .5f);
     }
 
     ////////////////////////////////////////////////////////////////////////

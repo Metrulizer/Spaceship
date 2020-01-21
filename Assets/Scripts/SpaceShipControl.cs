@@ -6,6 +6,7 @@ public class SpaceShipControl : MonoBehaviour
 {
     // Unity Physics body
     private Rigidbody _rb;
+    private AudioSource _as;
     private AudioLowPassFilter _alpf;
 
     public Transform _playerBody;
@@ -19,6 +20,7 @@ public class SpaceShipControl : MonoBehaviour
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
+        _as = GetComponent<AudioSource>();
         _alpf = GetComponent<AudioLowPassFilter>();
         _rb.mass = Tonnage * 1000;
         Acceleration *= _rb.mass;   // Use as Force
@@ -46,7 +48,7 @@ public class SpaceShipControl : MonoBehaviour
             movement = Quaternion.Euler(_playerBody.eulerAngles) * movement;
             //Debug.Log(movement);
 
-            if (movement == Vector3.zero) _alpf.cutoffFrequency = 10;
+            if (movement == Vector3.zero) _alpf.cutoffFrequency = 0;
             else
             {
                 _alpf.cutoffFrequency = 1000 * movement.magnitude;
@@ -74,8 +76,9 @@ public class SpaceShipControl : MonoBehaviour
             // Inertial Dampener
             _rb.AddTorque(-_rb.angularVelocity * Torque * InertialDampener);
             _rb.AddForce(-_rb.velocity * Acceleration * 0.01f * InertialDampener);
-            _alpf.cutoffFrequency = 10;
+            _alpf.cutoffFrequency = 0;
         };
+        _as.volume = Mathf.Clamp01(_alpf.cutoffFrequency / 1000);
     }
 }
 

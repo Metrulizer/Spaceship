@@ -24,7 +24,7 @@ public class Hologram_CollisionTrigger : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
         float distance = Vector3.Distance(transform.position, other.transform.position);
-        Debug.Log(distance / maxdist);
+        //Debug.Log(distance / maxdist);
         float transparency = Mathf.Clamp((distance / maxdist) - .5f, 0f, 1f);
         _ren.material.SetColor("_Color", new Color(0, 0, 1, transparency));
         transform.GetChild(0).GetComponent<Renderer>().material.SetColor("_Color", new Color(0, 0, 1, transparency));

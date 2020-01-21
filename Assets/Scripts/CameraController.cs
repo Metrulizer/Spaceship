@@ -21,6 +21,7 @@ public class CameraController : MonoBehaviour
     void Start()
     {
         //Debug.Log("Start");
+        Cursor.lockState = CursorLockMode.Locked;
         CameraReposition(Camera1);
     }
 
