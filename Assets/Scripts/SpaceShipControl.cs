@@ -6,6 +6,7 @@ public class SpaceShipControl : MonoBehaviour
 {
     // Unity Physics body
     private Rigidbody _rb;
+    private AudioLowPassFilter _alpf;
 
     public Transform _playerBody;
 
@@ -18,6 +19,7 @@ public class SpaceShipControl : MonoBehaviour
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
+        _alpf = GetComponent<AudioLowPassFilter>();
         _rb.mass = Tonnage * 1000;
         Acceleration *= _rb.mass;   // Use as Force
         Torque *= _rb.mass;
@@ -27,8 +29,30 @@ public class SpaceShipControl : MonoBehaviour
     void FixedUpdate()
     {
         ////////////////////////////////////////////////////////////////////////
-        if (!Input.GetKey(KeyCode.Space))
+        if (!Input.GetKey(KeyCode.LeftAlt))
         {
+            ////////////////////////////////////////////////////////////////////////
+            // Reference to: Roll-a-ball Tutorial https://learn.unity.com/project/roll-a-ball-tutorial
+            // and Unity Documentation: Vector3
+
+            // Get Thrust
+            float moveLongitudinal = Input.GetAxis("Vertical");  // Vertical = W, S keys, AeroLongitudinal = Tip-to-Tail axis
+            float moveLateral = Input.GetAxis("Horizontal");
+            float moveVertical = Input.GetKey(KeyCode.LeftControl) ? 1 :
+                Input.GetKey(KeyCode.Space) ? -1 : 0;
+
+            // Set Thrust
+            Vector3 movement = new Vector3(moveLateral, moveLongitudinal, moveVertical);
+            movement = Quaternion.Euler(_playerBody.eulerAngles) * movement;
+            //Debug.Log(movement);
+
+            if (movement == Vector3.zero) _alpf.cutoffFrequency = 10;
+            else
+            {
+                _alpf.cutoffFrequency = 1000 * movement.magnitude;
+                _rb.AddForce(movement * Acceleration);
+            }
+
             ////////////////////////////////////////////////////////////////////////
             // Get torque for this update. Vertical/Lateral inverted.
             float rotateLongitudinal = Input.GetKey(KeyCode.Q) ? 1 :
@@ -40,23 +64,7 @@ public class SpaceShipControl : MonoBehaviour
             Vector3 rotation = new Vector3(rotateLateral, rotateLongitudinal, rotateVertical);
             rotation = Quaternion.Euler(_playerBody.eulerAngles) * rotation;
             _rb.AddTorque(Torque * rotation);
-
-            ////////////////////////////////////////////////////////////////////////
-            // Reference to: Roll-a-ball Tutorial https://learn.unity.com/project/roll-a-ball-tutorial
-            // and Unity Documentation: Vector3
-
-            // Get Thrust
-            float moveLongitudinal = Input.GetAxis("Vertical");  // Vertical = W, S keys, AeroLongitudinal = Tip-to-Tail axis
-            float moveLateral = Input.GetAxis("Horizontal");
-            float moveVertical = Input.GetKey(KeyCode.LeftControl) ? 1 :
-                Input.GetKey(KeyCode.LeftShift) ? -1 : 0;
-
-            // Set Thrust
-            Vector3 movement = new Vector3(moveLateral, moveLongitudinal, moveVertical);
-            movement = Quaternion.Euler(_playerBody.eulerAngles) * movement;
-            //Debug.Log(_playerBody.eulerAngles);
-
-            _rb.AddForce(movement * Acceleration);
+            _alpf.cutoffFrequency += 100 * rotation.magnitude;
         }
         ////////////////////////////////////////////////////////////////////////
         else
@@ -66,6 +74,7 @@ public class SpaceShipControl : MonoBehaviour
             // Inertial Dampener
             _rb.AddTorque(-_rb.angularVelocity * Torque * InertialDampener);
             _rb.AddForce(-_rb.velocity * Acceleration * 0.01f * InertialDampener);
+            _alpf.cutoffFrequency = 10;
         };
     }
 }
