@@ -57,17 +57,16 @@ public class RigidBodyController : MonoBehaviour
         //  Quaternion, transform.eulerAngles
 
         // Limit the x-z speed
-        // Get planar Vector3 using Euler relative to GRAVITY (NOT parent(Ship's Interior))
-        vA = Quaternion.Euler(-Physics.gravity.normalized) * _rb.velocity;
-        vB = new Vector3(vA.x, 0, vA.z);
+        // WRONG ANSWER Get planar Vector3 using Euler relative to GRAVITY (NOT parent(Ship's Interior))
+/*        vA = transform.rotation * _rb.velocity;
+        vB =  new Vector3(vA.x, 0, vA.z);
 
         // Set Normalized speed
         if (vB.sqrMagnitude > SpeedLimit * SpeedLimit)
         {
-            _rb.velocity = Quaternion.Euler(Physics.gravity.normalized)
-                * new Vector3(vB.normalized.x * SpeedLimit, vA.y, vB.normalized.z * SpeedLimit);
+            //_rb.velocity = Quaternion.Euler(transform.up) * new Vector3(vB.normalized.x * SpeedLimit, vA.y, vB.normalized.z * SpeedLimit);
         }
-
+*/
         ////////////////////////////////////////////////////////////////////////
         // Reference to: Roll-a-ball Tutorial https://learn.unity.com/project/roll-a-ball-tutorial
         // and Unity Documentation: Vector3
@@ -75,19 +74,34 @@ public class RigidBodyController : MonoBehaviour
         // Get Movement
         moveKeyCodeWS = Input.GetAxis("Vertical");
         moveKeyCodeAD = Input.GetAxis("Horizontal");
-        
+
         // Set Movement, with respect to objects eulerAngle
         movement = new Vector3(moveKeyCodeAD, 0, moveKeyCodeWS);
-        // movement = Quaternion.Euler(transform.eulerAngles) * movement;    // RelativeForce does this job
+        //movement = Quaternion.Euler(transform.localPosition) * movement;    // RelativeForce does this job
+        //movement = Quaternion.Euler(transform.) * movement;
         force = _rb.mass * Acceleration;
-
         // Push Movement
-        _rb.AddRelativeForce(movement * force * Time.fixedDeltaTime);
+        _rb.AddRelativeForce(movement * force * Time.fixedDeltaTime);   //removed relative force, works improperly
         //_rb.AddTorque(-_rb.angularVelocity * .5f);    // rigidbody is now clamped
 
         // Jump
-        if (Input.GetKeyDown(KeyCode.Space) & flagCollision) 
-            _rb.AddRelativeForce(-Physics.gravity * force * Time.fixedDeltaTime * .5f);
+        if (Input.GetKeyDown(KeyCode.Space) & flagCollision)
+            _rb.AddForce(-Physics.gravity * force * Time.fixedDeltaTime * .5f);
+
+        //grav
+        Debug.DrawRay(transform.position, Physics.gravity, Color.white, Time.fixedDeltaTime);
+
+        //self
+        Debug.DrawRay(_head.transform.position, transform.right, Color.red, Time.fixedDeltaTime);
+        Debug.DrawRay(_head.transform.position, transform.up, Color.green, Time.fixedDeltaTime);
+
+/*        Debug.DrawRay(transform.position, vA, Color.grey, Time.fixedDeltaTime);
+        Debug.DrawRay(transform.position, new Vector3(vB.x, 0, 0), Color.magenta, Time.fixedDeltaTime);
+        Debug.DrawRay(transform.position, new Vector3(0, 0, vB.z), Color.magenta, Time.fixedDeltaTime);
+*/
+        //Debug.DrawRay(_head.transform.position, transform.rotation * movement * force * Time.fixedDeltaTime, Color.cyan, Time.fixedDeltaTime);
+        Debug.DrawRay(_head.transform.position, transform.GetComponent<Rigidbody>().velocity*.5f, Color.black, Time.fixedDeltaTime);
+
     }
 
     ////////////////////////////////////////////////////////////////////////
@@ -103,5 +117,7 @@ public class RigidBodyController : MonoBehaviour
         // Set Transformation: yaw on body but pitch only on head
         transform.Rotate(0, mouseX, 0);
         _head.transform.Rotate(-mouseY, 0, 0);
+
+
     }
 }

@@ -35,7 +35,7 @@ public class CollisionWarning : MonoBehaviour
         soundActive = false;
         _as.Play();
         float delay = Mathf.Sqrt(proximity) / 2f - .2f;
-        Debug.Log(delay);
+        //Debug.Log(delay);
         yield return new WaitForSeconds(delay);
         soundActive = true;
 
