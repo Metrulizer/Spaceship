@@ -49,7 +49,7 @@ public class ButtonPilotSeat : MonoBehaviour
         }
 
     }
-    private void SpaceshipChangeover()
+    public void SpaceshipChangeover()
     {
         Debug.Log("ButtonPilotSeat pressed");
         _SpaceShip.SetActive(true);
@@ -60,7 +60,7 @@ public class ButtonPilotSeat : MonoBehaviour
         _Interior.SetActive(false);
     }
 
-    private void InteriorChangeover()
+    public void InteriorChangeover()
     {
         Debug.Log("ButtonPilotSeat pressed");
 

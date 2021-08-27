@@ -16,6 +16,8 @@ public class SpaceShipControl : MonoBehaviour
     public float Torque = 1;
     public float InertialDampener = 10;
 
+    public float mouseSens = 2.0f;
+
     ////////////////////////////////////////////////////////////////////////
     void Start()
     {
@@ -59,8 +61,8 @@ public class SpaceShipControl : MonoBehaviour
             // Get torque for this update. Vertical/Lateral inverted.
             float rotateLongitudinal = Input.GetKey(KeyCode.Q) ? 1 :
                 Input.GetKey(KeyCode.E) ? -1 : 0;
-            float rotateVertical = -Input.GetAxis("Mouse X");
-            float rotateLateral = -Input.GetAxis("Mouse Y");
+            float rotateVertical = -Input.GetAxis("Mouse X") * mouseSens;
+            float rotateLateral = -Input.GetAxis("Mouse Y") * mouseSens;
 
             // Set torque thrust for this update.
             Vector3 rotation = new Vector3(rotateLateral, rotateLongitudinal, rotateVertical);

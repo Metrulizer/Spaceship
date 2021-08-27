@@ -4,5 +4,12 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
-  m_configObjects: {}
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/PrefabWIP/Interior.unity
+    guid: 42e90aa44a14213458a744fea893d47f
+  m_configObjects:
+    Unity.XR.WindowsMR.Settings: {fileID: 11400000, guid: 690de07e87489f44fab27728cef76a30,
+      type: 2}
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 6a21292d3ef7692498570135c63d4dd0,
+      type: 2}

@@ -23,6 +23,7 @@ public class CameraController : MonoBehaviour
     {
         //Debug.Log("Start");
         Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         CameraReposition(Camera1);
     }
 
